@@ -91,3 +91,5 @@ _NOTE: text inside of angle brackets (i.e. `<example>`) is **placeholder** text 
   <param name="allowscriptaccess" value="always"/>
 </object>
 ```
+
+#######TO DO: PASTE CODE GENERATION FROM THE DASHBOARD
