@@ -12,60 +12,71 @@ To use Shopbeam's flash widget app please [visit the widget paste-code generator
 Using a Custom Flash Widget:
 ----------------------------
 
-###Actionscript Example
+###Actionscript
+
+####Loader
 ```actionscript
-import flash.events.Event;
-import flash.events.IOErrorEvent;
-import flash.system.SecurityDomain;
-
-Security.allowDomain('*');
-
-var widgetUuid:String = stage.loaderInfo.parameters.widgetUuid;
-var widgetData:Object;
 var loader:Loader = new Loader();
 var loadingError:Function;
 var loaderClickHandler:Function;
+
+stage.addChild(loader);
+loader.x = 0;
+loader.y = 0;
+
+loader.contentLoaderInfo.addEventListener(Event.COMPLETE,doneLoad);
+	
+function doneLoad(e:Event):void {
+	loader.contentLoaderInfo.removeEventListener(Event.COMPLETE,doneLoad);
+	loader.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR,loadingError);
+}
+
+loadingError = function(e:IOErrorEvent):void {
+	ExternalInterface.call('console.error', 'SwfWidget with id: ' + widgetUuid + ' couldn\'t load image');
+}
+	
+loaderClickHandler = function(e:Event):void {
+	ExternalInterface.call('Shopbeam.swfOpenLightbox', widgetUuid);
+}
+
+loader.addEventListener(MouseEvent.CLICK, loaderClickHandler);
+loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,loadingError);
+```
+
+####ExternalInterface
+`setWidgetData` must be defined: This hook receives a `String` argument which is stringified JSON object containing information about the embedded product/variant:
+
+_NOTE: the phrase "embedded variant" refers to the variant whose `id` is in the query to the shopbeam api; e.g. for api url `/v1/products?id=123456`, the embedded variant's id is `123456`. For more info referene the [Shobeam API docs](#)_
+
+```json
+{
+  "outOfStock": "<boolean: true when the embedded product's variants are out of stock>",
+  "initialProduct": {
+    "brandName": "<embedded variant's brand name>",
+    "name": "<embedded variant's product name>"
+  },
+  "initialImage":{
+    "url":"https://cloudinary-a.akamaihd.net/shopbeam/image/fetch/w_350,h_536,c_pad/ht…nmarcus.com%2Fca%2F1%2Fproduct_assets%2FH%2F7%2F6%2F1%2FP%2FNMH761P_mz.jpg"
+  },
+  "embedImage":{
+    "url":"https://cloudinary-a.akamaihd.net/shopbeam/image/fetch/w_350,h_536,c_pad/ht…nmarcus.com%2Fca%2F1%2Fproduct_assets%2FH%2F7%2F6%2F1%2FP%2FNMH761P_mz.jpg"
+  },
+  "apiKey":"bdac27b3-9e03-42b6-93bb-050a9ac01c10",
+  "options":{
+    "widgetId":"7a85cq79-5e7c-32d9-b509-cacb17b5e21e",
+    "productsUrl":"https://www.shopbeamtest.com:4000/v1/products?id=8461791&image=1&apiKey=bdac27b3-9e03-42b6-93bb-050a9ac01c10",
+    "initialImageSource":"https://cloudinary-a.akamaihd.net/shopbeam/image/fetch/w_350,h_536,c_pad/ht…nmarcus.com%2Fca%2F1%2Fproduct_assets%2FH%2F7%2F6%2F1%2FP%2FNMH761P_mz.jpg"
+  }
+}
+```
+
+```actionscript
+var widgetData:Object;
 
 ExternalInterface.addCallback('setWidgetData', setWidgetData);
 function setWidgetData(data:String):void {
 	widgetData = JSON.parse(data);
 	loader.load(new URLRequest(widgetData.embedImage.url));
-}
-
-preInit();
-init();
-postInit();
-
-function preInit():void {
-	stage.addChild(loader);
-	loader.x = 0;
-	loader.y = 0;
-
-	loader.contentLoaderInfo.addEventListener(Event.COMPLETE,doneLoad);
-	
-	function doneLoad(e:Event):void {
-		loader.contentLoaderInfo.removeEventListener(Event.COMPLETE,doneLoad);
-		loader.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR,loadingError);
-	}
-}
-
-function init():void {
-	trace('framedInit called for ' + widgetUuid);
-	loadingError = function(e:IOErrorEvent):void {
-		ExternalInterface.call('console.error', 'SwfWidget with id: ' + widgetUuid + ' couldn\'t load image');
-	}
-	
-	loaderClickHandler = function(e:Event):void {
-		ExternalInterface.call('Shopbeam.swfOpenLightbox', widgetUuid);
-	}
-}
-
-function postInit():void {
-	loaderClickHandler = function(e:Event):void {
-		ExternalInterface.call('Shopbeam.swfOpenLightbox', widgetUuid);
-	}
-	loader.addEventListener(MouseEvent.CLICK, loaderClickHandler);
-	loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,loadingError);
 }
 ```
 
