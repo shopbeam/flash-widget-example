@@ -51,7 +51,7 @@ _NOTE: the phrase "embedded variant" refers to the variant whose `id` is in the 
 #####Wiget Data:
 ```json
 {
-   "outOfStock": true, //<boolean: true when the embedded product's variants are out of stock>
+   "outOfStock": true, /*<boolean: true when the embedded product's variants are out of stock>*/
    "initialProduct": {
       "id": 1883823,
       "name": "<embedded variant's product name>",
