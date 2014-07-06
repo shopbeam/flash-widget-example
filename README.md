@@ -48,12 +48,125 @@ loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,loadingError);
 
 _NOTE: the phrase "embedded variant" refers to the variant whose `id` is in the query to the shopbeam api; e.g. for api url `/v1/products?id=123456`, the embedded variant's id is `123456`. For more info referene the [Shobeam API docs](#)_
 
+#####Wiget Data:
 ```json
 {
-  "outOfStock": "<boolean: true when the embedded product's variants are out of stock>",
+   "outOfStock": <boolean: true when the embedded product's variants are out of stock>,
+   "initialProduct": {
+      "id": 1883823,
+      "name": "<embedded variant's product name>",
+      "description": "<html: product description>",
+      "minPrice": <integer: IDK>,
+      "maxPrice": <integer: IDK>,
+      "maxListPrice": <integer: maximum list price in cents>,
+      "minListPrice": <integer: minimum list pirce in cents>,
+      "salePercent": <integer: IDK>,
+      "partnerId": <integer: partner Id>,
+      "partnerCommission": <integer: IDK, probably in cents>,
+      "partnerName": "<partner name>",
+      "brandId": <integer: partner Id>,
+      "brandName": "<brand name>",
+      "colorSubstitute": null,
+      "createdAt": "<timestamp: date and time when product was first added to the DB>",
+      "categories":[
+         {
+            "id": <integer: category Id>,
+            "name": "<string: category name>"
+         },
+         ...
+      ],
+      "variants":[
+         {
+            "id": <integer>,
+            "color": "<string: variant color name>",
+            "colorFamily": [
+               "<string: IDK>"
+            ],
+            "size": "<string: variant size, non-standard>",
+            "listPrice": <integer: list price in cents>,
+            "salePrice": <integer: sale price in cents (if no sale, this will be equal to the list price)>,
+            "images": [
+               {
+                  "id": <integer: image id>,
+                  "url": "<integer: image url (cloudinary CDN)>"
+               },
+               ...
+            ]
+         },
+         ...
+      ]
+   },
+   "initialVariant": {
+      "id": <integer: embedded variant Id>,
+      "color": "<string: embedded variant>",
+      "colorFamily":[
+         "silver"
+      ],
+      "size":"",
+      "listPrice":42500,
+      "salePrice":21200,
+      "images":[
+         {
+            "id":30966526,
+            "url":"http://images.neimanmarcus.com/ca/1/product_assets/T/7/G/F/9/NMT7GF9_mz.jpg"
+         },
+         {
+            "id":30966527,
+            "url":"http://images.neimanmarcus.com/ca/1/product_assets/T/7/G/F/9/NMT7GF9_az.jpg"
+         }
+      ]
+   },
+   "initialImage":{
+      "id":30966526,
+      "url":"http://images.neimanmarcus.com/ca/1/product_assets/T/7/G/F/9/NMT7GF9_mz.jpg"
+   },
+   "embedImage":{
+      "url":"https://cloudinary-a.akamaihd.net/shopbeam/image/fetch/w_350,h_536,c_pad/ht…nmarcus.com%2Fca%2F1%2Fproduct_assets%2FT%2F7%2FG%2FF%2F9%2FNMT7GF9_mz.jpg"
+   },
+   "colors":[
+      {
+         "name":"Silver/shade Mult",
+         "imageUrl":"http://images.neimanmarcus.com/ca/1/product_assets/T/7/G/F/9/NMT7GF9_mz.jpg",
+         "variants":[
+            {
+               "id":9033506,
+               "color":"Silver/shade Mult",
+               "colorFamily":[
+                  "silver"
+               ],
+               "size":"",
+               "listPrice":42500,
+               "salePrice":21200,
+               "images":[
+                  {
+                     "id":30966526,
+                     "url":"http://images.neimanmarcus.com/ca/1/product_assets/T/7/G/F/9/NMT7GF9_mz.jpg"
+                  },
+                  {
+                     "id":30966527,
+                     "url":"http://images.neimanmarcus.com/ca/1/product_assets/T/7/G/F/9/NMT7GF9_az.jpg"
+                  }
+               ]
+            }
+         ]
+      }
+   ],
+   "apiKey":"bdac27b3-9e03-42b6-93bb-050a9ac01c10",
+   "options":{
+      "widgetId":"8a15742f-5f5b-42ec-b2d3-675c87715859",
+      "productsUrl":"https://www.shopbeamtest.com:4000/v1/products?id=9033506&image=1&apiKey=bdac27b3-9e03-42b6-93bb-050a9ac01c10",
+      "initialImageSource":"https://cloudinary-a.akamaihd.net/shopbeam/image/fetch/w_350,h_536,c_pad/ht…nmarcus.com%2Fca%2F1%2Fproduct_assets%2FT%2F7%2FG%2FF%2F9%2FNMT7GF9_mz.jpg"
+   }
+}
+```
+
+#####Out of Stock Example:
+```json
+{
+  "outOfStock": "true",
   "initialProduct": {
-    "brandName": "<embedded variant's brand name>",
-    "name": "<embedded variant's product name>"
+    "brandName": "The James Crystal Sailboat Minaudiere",
+    "name": ""
   },
   "initialImage":{
     "url":"https://cloudinary-a.akamaihd.net/shopbeam/image/fetch/w_350,h_536,c_pad/ht…nmarcus.com%2Fca%2F1%2Fproduct_assets%2FH%2F7%2F6%2F1%2FP%2FNMH761P_mz.jpg"
@@ -67,6 +180,119 @@ _NOTE: the phrase "embedded variant" refers to the variant whose `id` is in the 
     "productsUrl":"https://www.shopbeamtest.com:4000/v1/products?id=8461791&image=1&apiKey=bdac27b3-9e03-42b6-93bb-050a9ac01c10",
     "initialImageSource":"https://cloudinary-a.akamaihd.net/shopbeam/image/fetch/w_350,h_536,c_pad/ht…nmarcus.com%2Fca%2F1%2Fproduct_assets%2FH%2F7%2F6%2F1%2FP%2FNMH761P_mz.jpg"
   }
+}
+```
+
+######In Stock Example:
+```json
+{
+   "outOfStock":false,
+   "initialProduct":{
+      "id":1883823,
+      "name":"The James Crystal Sailboat Minaudiere",
+      "description":"<ul><li>Beaded velvet and pleated soft-jersey.</li><b><li>Approx. 67\"L from shoulder to hem. </li></b><li>Round neckline.</li><li>Sleeveless; moderate shoulder coverage.</li><li>Velvet bodice; cutaway.</li><li>Scoop back; zip.</li><li>Hi-low hem.</li><li>Polyester; polyester/spandex; polyester lining.</li><li>Imported.</li></ul><b>About Laundry by Shelli Segal:</b><br/><br/> Fall 2008 announced the return to the Laundry by Shelli Segal name with its Los Angeles based heritage of dressing the Contemporary girl in sexy, on-trend dresses, taking her from work to play. Whether business cocktail or dinner date, baby shower or bridal party, the label offers the perfect dress for every occasion.<br/> Launched in 1988, the collection is a reflection of the \"LA Girl\" - feminine and contemporary with an energetic and free-spirited attitude, always craving the next fashion statement. Every season Laundry by Shelli Segal interprets the latest trends, adding a unique styling to create a signature look.Modern Size Guide",
+      "minPrice":21200,
+      "maxPrice":21200,
+      "maxListPrice":42500,
+      "minListPrice":42500,
+      "salePercent":50,
+      "partnerId":33955,
+      "partnerCommission":840,
+      "partnerName":"Neiman Marcus",
+      "brandId":126295,
+      "brandName":"Laundry By Shelli Segal",
+      "colorSubstitute":null,
+      "createdAt":"2014-07-01T06:03:03.730Z",
+      "categories":[
+         {
+            "id":42848,
+            "name":"Evening"
+         }
+      ],
+      "variants":[
+         {
+            "id":9033506,
+            "color":"Silver/shade Mult",
+            "colorFamily":[
+               "silver"
+            ],
+            "size":"",
+            "listPrice":42500,
+            "salePrice":21200,
+            "images":[
+               {
+                  "id":30966526,
+                  "url":"http://images.neimanmarcus.com/ca/1/product_assets/T/7/G/F/9/NMT7GF9_mz.jpg"
+               },
+               {
+                  "id":30966527,
+                  "url":"http://images.neimanmarcus.com/ca/1/product_assets/T/7/G/F/9/NMT7GF9_az.jpg"
+               }
+            ]
+         }
+      ]
+   },
+   "initialVariant":{
+      "id":9033506,
+      "color":"Silver/shade Mult",
+      "colorFamily":[
+         "silver"
+      ],
+      "size":"",
+      "listPrice":42500,
+      "salePrice":21200,
+      "images":[
+         {
+            "id":30966526,
+            "url":"http://images.neimanmarcus.com/ca/1/product_assets/T/7/G/F/9/NMT7GF9_mz.jpg"
+         },
+         {
+            "id":30966527,
+            "url":"http://images.neimanmarcus.com/ca/1/product_assets/T/7/G/F/9/NMT7GF9_az.jpg"
+         }
+      ]
+   },
+   "initialImage":{
+      "id":30966526,
+      "url":"http://images.neimanmarcus.com/ca/1/product_assets/T/7/G/F/9/NMT7GF9_mz.jpg"
+   },
+   "embedImage":{
+      "url":"https://cloudinary-a.akamaihd.net/shopbeam/image/fetch/w_350,h_536,c_pad/ht…nmarcus.com%2Fca%2F1%2Fproduct_assets%2FT%2F7%2FG%2FF%2F9%2FNMT7GF9_mz.jpg"
+   },
+   "colors":[
+      {
+         "name":"Silver/shade Mult",
+         "imageUrl":"http://images.neimanmarcus.com/ca/1/product_assets/T/7/G/F/9/NMT7GF9_mz.jpg",
+         "variants":[
+            {
+               "id":9033506,
+               "color":"Silver/shade Mult",
+               "colorFamily":[
+                  "silver"
+               ],
+               "size":"",
+               "listPrice":42500,
+               "salePrice":21200,
+               "images":[
+                  {
+                     "id":30966526,
+                     "url":"http://images.neimanmarcus.com/ca/1/product_assets/T/7/G/F/9/NMT7GF9_mz.jpg"
+                  },
+                  {
+                     "id":30966527,
+                     "url":"http://images.neimanmarcus.com/ca/1/product_assets/T/7/G/F/9/NMT7GF9_az.jpg"
+                  }
+               ]
+            }
+         ]
+      }
+   ],
+   "apiKey":"bdac27b3-9e03-42b6-93bb-050a9ac01c10",
+   "options":{
+      "widgetId":"8a15742f-5f5b-42ec-b2d3-675c87715859",
+      "productsUrl":"https://www.shopbeamtest.com:4000/v1/products?id=9033506&image=1&apiKey=bdac27b3-9e03-42b6-93bb-050a9ac01c10",
+      "initialImageSource":"https://cloudinary-a.akamaihd.net/shopbeam/image/fetch/w_350,h_536,c_pad/ht…nmarcus.com%2Fca%2F1%2Fproduct_assets%2FT%2F7%2FG%2FF%2F9%2FNMT7GF9_mz.jpg"
+   }
 }
 ```
 
