@@ -13,10 +13,13 @@ Using a Custom Flash Widget:
 ----------------------------
 
 ###Markup Template
-_NOTE: All `uuid`s must conform to the [uuid spec](http://en.wikipedia.org/wiki/Universally_unique_identifier), if it does not, an error will be raised when attampting to checkout with a product added from the malormed widget_
+_NOTE: All `uuid`s must be unique (on a per widget basis) and conform to the [uuid spec](http://en.wikipedia.org/wiki/Universally_unique_identifier), if it does not, an error will be raised when attampting to checkout with a product added from the malormed widget_
 
 ```html
-<object type="application/x-shockwave-flash" data="<!-- url for widget swf -->" id="shopbeam-widget-swf-unbootstrapped-<!-- widget uuid (must be UNIQUE!) -->" data-image-src="<!-- url for widget embed image -->" data-shopbeam-url="<!-- shopbeam product api path (excludes protocol, port and domain) -->" width="<!-- width in pixels (number) -->" height="<!-- height in pixels (number) -->">
+<object type="application/x-shockwave-flash" data="<!-- url for widget swf -->" 
+    id="shopbeam-widget-swf-unbootstrapped-<!-- widget uuid (must be UNIQUE!) -->" data-image-src="<!-- url for widget embed image -->" 
+    data-shopbeam-url="<!-- shopbeam product api path (excludes protocol, port and domain) -->" 
+    width="<!-- width in pixels (number) -->" height="<!-- height in pixels (number) -->">
   <param name="movie" value="<!-- url for widget swf -->"/>
   <!--NOTE: the "value" of FlashVars MUST be urlEncoded!!!-->
   <param name="FlashVars" value="widgetUuid=<!-- widget uuid (must be UNIQUE!) -->"/>
