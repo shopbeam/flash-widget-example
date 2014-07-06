@@ -12,6 +12,18 @@ To use Shopbeam's flash widget app please [visit the widget paste-code generator
 Using a Custom Flash Widget:
 ----------------------------
 
+###Markup Template
+_NOTE: All `uuid`s must conform to the [uuid spec](http://en.wikipedia.org/wiki/Universally_unique_identifier), if it does not, an error will be raised when attampting to checkout with a product added from the malormed widget_
+
+```html
+<object type="application/x-shockwave-flash" data="<!-- url for widget swf -->" id="shopbeam-widget-swf-unbootstrapped-<!-- widget uuid (must be UNIQUE!) -->" data-image-src="<!-- url for widget embed image -->" data-shopbeam-url="<!-- shopbeam product api path (excludes protocol, port and domain) -->" width="<!-- width in pixels (number) -->" height="<!-- height in pixels (number) -->">
+  <param name="movie" value="<!-- url for widget swf -->"/>
+  <!--NOTE: the "value" of FlashVars MUST be urlEncoded!!!-->
+  <param name="FlashVars" value="widgetUuid=<!-- widget uuid (must be UNIQUE!) -->"/>
+  <param name="allowscriptaccess" value="always"/>
+</object>
+```
+
 ###Actionscript
 
 ####Loader
@@ -50,13 +62,23 @@ _NOTE*: the phrase "embedded variant" refers to the variant whose `id` is in the
 
 _NOTE**: the phrase "embedded image" refers to the image selected at the time of paste-code generation. This could either be one of the embedded variant's* images or an uploaded image_
 
+```actionscript
+var widgetData:Object;
+
+ExternalInterface.addCallback('setWidgetData', setWidgetData);
+function setWidgetData(data:String):void {
+	widgetData = JSON.parse(data);
+	loader.load(new URLRequest(widgetData.embedImage.url));
+}
+```
+
 #####Wiget Data:
 
 ######In Stock Example:
 ```javascript
 {
    "outOfStock": false, //boolean: true when the embedded product's variants are out of stock
-   "initialProduct": { //object: the embedded variant's product
+   "initialProduct": { //object: the embedded variant's* product
       "id": 1883823, //integer: product id
       "name": "The James Crystal Sailboat Minaudiere", //string: product name
       "description": "<ul><li>Beaded velvet and pleated soft-jersey.</li><b><li>Approx. 67\"L from shoulder to hem. </li></b><li>Round neckline.</li><li>Sleeveless; moderate shoulder coverage.</li><li>Velvet bodice; cutaway.</li><li>Scoop back; zip.</li><li>Hi-low hem.</li><li>Polyester; polyester/spandex; polyester lining.</li><li>Imported.</li></ul><b>About Laundry by Shelli Segal:</b><br/><br/> Fall 2008 announced the return to the Laundry by Shelli Segal name with its Los Angeles based heritage of dressing the Contemporary girl in sexy, on-trend dresses, taking her from work to play. Whether business cocktail or dinner date, baby shower or bridal party, the label offers the perfect dress for every occasion.<br/> Launched in 1988, the collection is a reflection of the \"LA Girl\" - feminine and contemporary with an energetic and free-spirited attitude, always craving the next fashion statement. Every season Laundry by Shelli Segal interprets the latest trends, adding a unique styling to create a signature look.Modern Size Guide", //string: html, product description
@@ -164,51 +186,25 @@ _NOTE**: the phrase "embedded image" refers to the image selected at the time of
 ```javascript
 {
    "outOfStock": true, //boolean: true when the embedded product's variants are out of stock
-   "initialProduct": {
-      "brandName": "Currently Out of Stock",
-      "name": "(all colors & sizes)"
+   "initialProduct": { //object: placeholder object for out of stock product
+      "brandName": "Currently Out of Stock", //string: placeholder text
+      "name": "(all colors & sizes)" //string: placeholder text
    },
-   "initialImage": {
-      "url": "https://cloudinary-a.akamaihd.net/shopbeam/image/fetch/w_494,h_800,c_pad,r_…nger22.com%2Fstatic%2Finsets%2Fimages%2FNEVER1031-SHOCKING-PINK_INSET5.jpg"
+   "initialImage": { //object: embedded image**
+      "url": "https://cloudinary-a.akamaihd.net/shopbeam/image/fetch/w_494,h_800,c_pad,r_…nger22.com%2Fstatic%2Finsets%2Fimages%2FNEVER1031-SHOCKING-PINK_INSET5.jpg" //string: image url
    },
-   "embedImage": {
-      "url": "https://cloudinary-a.akamaihd.net/shopbeam/image/fetch/w_494,h_800,c_pad,r_…nger22.com%2Fstatic%2Finsets%2Fimages%2FNEVER1031-SHOCKING-PINK_INSET5.jpg"
+   "embedImage": { //object: embedded image** (using cloudinary CDN; this includes sizing and cropping)
+      "url": "https://cloudinary-a.akamaihd.net/shopbeam/image/fetch/w_494,h_800,c_pad,r_…nger22.com%2Fstatic%2Finsets%2Fimages%2FNEVER1031-SHOCKING-PINK_INSET5.jpg" //string: image url
    },
-   "apiKey": "e8abf83f-38f2-450b-80e5-32d206ce85e6",
-   "options": {
-      "widgetId": "738f4922-2870-4e11-9d40-f0556c9855cf",
-      "width": 250,
-      "productsUrl": "https://www.shopbeamtest.com:4000/v1/products?id=7834&apiKey=e8abf83f-38f2-450b-80e5-32d206ce85e6&google_conversion_id=978821477&campaign=nieman",
-      "initialImageSource": "https://cloudinary-a.akamaihd.net/shopbeam/image/fetch/w_494,h_800,c_pad,r_…nger22.com%2Fstatic%2Finsets%2Fimages%2FNEVER1031-SHOCKING-PINK_INSET5.jpg",
-      "remarketing": {
-         "conversionId": "978821477",
-         "campaign": "nieman"
-      }
+   "apiKey": "e8abf83f-38f2-450b-80e5-32d206ce85e6", //string: publisher api key
+   "options": { //object: additional (optional / misc.) data
+      "widgetId": "738f4922-2870-4e11-9d40-f0556c9855cf", //string: widget uuid
+      "productsUrl": "https://www.shopbeamtest.com:4000/v1/products?id=7834&apiKey=e8abf83f-38f2-450b-80e5-32d206ce85e6&google_conversion_id=978821477&campaign=nieman", //string: shopbeam api url used to get this data
+      "initialImageSource": "https://cloudinary-a.akamaihd.net/shopbeam/image/fetch/w_494,h_800,c_pad,r_…nger22.com%2Fstatic%2Finsets%2Fimages%2FNEVER1031-SHOCKING-PINK_INSET5.jpg", //string: image url from `data-image-src` attribute
    }
 }
 ```
 
-```actionscript
-var widgetData:Object;
-
-ExternalInterface.addCallback('setWidgetData', setWidgetData);
-function setWidgetData(data:String):void {
-	widgetData = JSON.parse(data);
-	loader.load(new URLRequest(widgetData.embedImage.url));
-}
-```
-
-###Markup Template
-_NOTE: text inside of angle brackets (i.e. `<example>`) is **placeholder** text and is intended to be replaced. Also any `uuid` must conform to the [uuid spec](http://en.wikipedia.org/wiki/Universally_unique_identifier), if it does not, an error will be raised when attampting to checkout with a product added from the malormed widget_
-
-```html
-<object type="application/x-shockwave-flash" data="<url for single-widget.swf>" id="shopbeam-widget-swf-unbootstrapped-<widget uuid (must be UNIQUE!)>" data-image-src="<url for widget embed image>" data-shopbeam-url="<shopbeam product api path (excludes protocol, port and domain)>" width="<width in pixels (number)>" height="<height in pixels (number)>">
-  <param name="movie" value="<url for single-widget.swf>"/>
-  <!--NOTE: the "value" of FlashVars MUST be urlEncoded!!!-->
-  <param name="FlashVars" value="widgetUuid=<widget uuid (must be UNIQUE!)>"/>
-  <param name="allowscriptaccess" value="always"/>
-</object>
-```
 
 ###TO DO: PASTE CODE GENERATION FROM THE DASHBOARD
 not
