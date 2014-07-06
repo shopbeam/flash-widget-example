@@ -19,7 +19,7 @@ _NOTE: All `uuid`s must be unique (on a per widget basis) and conform to the [uu
 <object type="application/x-shockwave-flash" data="<!-- url for widget swf -->" 
     id="shopbeam-widget-swf-unbootstrapped-<!-- widget uuid (must be UNIQUE!) -->" 
     data-image-src="<!-- url for widget embed image -->" 
-    data-shopbeam-url="<!-- shopbeam product api path (excludes protocol, port and domain) -->" 
+    data-shopbeam-url="<!-- shopbeam product api path (EXCLUDES protocol, port and domain) -->" 
     width="<!-- width in pixels (number) -->" height="<!-- height in pixels (number) -->">
   <param name="movie" value="<!-- url for widget swf -->"/>
   <!--NOTE: the "value" of FlashVars MUST be urlEncoded!!!-->
