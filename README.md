@@ -1,84 +1,96 @@
-Flash-Widget-Example
+Shopbeam Flash Widget Example
 ====================
 
-This is an example of a flash swf Shopbeam widget app. It's analogous to the angular (html5/javascript) widget app; both of which communicate with the same Shopbeam lightbox, cart and checkout apps in the Shopbeam suite.
+This is an example of a flash swf Shopbeam widget app.
 
-Using Shopbeam's Flash Widget:
-------------------------------
+Usage
+-----
 
-To use Shopbeam's flash widget app please [visit the widget paste-code generator](#). This generator will output valid, paste-ready html including unique wiget uuids.
+### 1. Choose a product
 
+Go to https://www.shopbeam.com/products and select a product.
+Copy the widget pastecode, it should look like this:
 
-Using a Custom Flash Widget:
-----------------------------
+``` html
+<script class="shopbeam-script" type="text/javascript" src="https://www.shopbeam.com/js/widget.loader.js" async="true">
+</script>
+<img class="nopin"
+  src="https://cloudinary-a.akamaihd.net/shopbeam/image/fetch/w_150/http%3A%2F%2Fwww.pinksandgreens.com%2Fmedia%2Fcatalog%2Fproduct%2Fcache%2F21%2Fthumbnail%2F700x1052%2F9df78eab33525d08d6e5fb8d27136e95%2Fp%2Fo%2Fpolo2_1.jpg"
+  width="150" height="225"
+  alt="Greg Norman - Rock&Roll Plaid Short"
+  id="shopbeam-widget-image-placeholder-f8ff0042-562c-405e-94e3-ee5749e09b93"
+  data-shopbeam-url="/v1/products?id=9042943&image=1&apiKey=a55a93e4-7c95-4a87-9e36-20055bc335d1" />
+```
 
-###Markup Template
-_NOTE: All `uuid`s must be unique (on a per widget basis) and conform to the [uuid spec](http://en.wikipedia.org/wiki/Universally_unique_identifier), if it does not, an error will be raised when attampting to checkout with a product added from the malormed widget_
+### 2. Embed swf widget
 
-```html
-<object type="application/x-shockwave-flash" data="<!-- url for widget swf -->" 
-    id="shopbeam-widget-swf-unbootstrapped-<!-- widget uuid (must be UNIQUE!) -->" 
-    data-image-src="<!-- url for widget embed image -->" 
-    data-shopbeam-url="<!-- shopbeam product api path (EXCLUDES protocol, port and domain) -->" 
-    width="<!-- width in pixels (number) -->" height="<!-- height in pixels (number) -->">
-  <param name="movie" value="<!-- url for widget swf -->"/>
+In order to create our own custom flash widget, we just need to grab a few atributes:
+- img width and height
+- img id
+- img src (product image url)
+- img data-shopbeam-url
+
+And use them in a flash object embed, here's an example for the provided example swf widget:
+
+``` html
+<script class="shopbeam-script" type="text/javascript" src="https://www.shopbeam.com/js/widget.loader.js" async="true">
+</script>
+<object type="application/x-shockwave-flash" data="shopbeam-widget.swf"
+  id="shopbeam-widget-swf-unbootstrapped-f8ff0042-562c-405e-94e3-ee5749e09b93"
+  data-shopbeam-url="/v1/products?id=9042943&image=1&apiKey=a55a93e4-7c95-4a87-9e36-20055bc335d1"
+  width="150" height="225">
+  <param name="movie" value="shopbeam-widget.swf"/>
   <!--NOTE: the "value" of FlashVars MUST be urlEncoded!!!-->
-  <param name="FlashVars" value="widgetUuid=<!-- widget uuid (must be UNIQUE!) -->"/>
+  <param name="FlashVars" value="widgetUuid=f8ff0042-562c-405e-94e3-ee5749e09b93&imageUrl=https://cloudinary-a.akamaihd.net/shopbeam/image/fetch/w_150/http%3A%2F%2Fwww.pinksandgreens.com%2Fmedia%2Fcatalog%2Fproduct%2Fcache%2F21%2Fthumbnail%2F700x1052%2F9df78eab33525d08d6e5fb8d27136e95%2Fp%2Fo%2Fpolo2_1.jpg"/>
   <param name="allowscriptaccess" value="always"/>
 </object>
 ```
 
-###Actionscript
+on the object tag:
+- data: url to the compiled swf widget
+- id: "shopbeam-widget-swf-unbootstrapped-" + the product uuid, analogous to the img id above
+- data-shopbeam-url same value as img
+- width and height: same as img
+- FlashVars: this are the parameters for the flash widget (encoded as url query parameters):
+ - widgetUuid: the uuid copied from the img id above
+ - imageUrl: image url (src) on the img above
 
-####Loader
-```actionscript
-var loader:Loader = new Loader();
-var loadingError:Function;
-var loaderClickHandler:Function;
+Here's a template version of the flash embed:
 
-stage.addChild(loader);
-loader.x = 0;
-loader.y = 0;
-
-loader.contentLoaderInfo.addEventListener(Event.COMPLETE,doneLoad);
-	
-function doneLoad(e:Event):void {
-	loader.contentLoaderInfo.removeEventListener(Event.COMPLETE,doneLoad);
-	loader.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR,loadingError);
-}
-
-loadingError = function(e:IOErrorEvent):void {
-	ExternalInterface.call('console.error', 'SwfWidget with id: ' + widgetUuid + ' couldn\'t load image');
-}
-	
-loaderClickHandler = function(e:Event):void {
-	ExternalInterface.call('Shopbeam.swfOpenLightbox', widgetUuid);
-}
-
-loader.addEventListener(MouseEvent.CLICK, loaderClickHandler);
-loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,loadingError);
+``` html
+<script class="shopbeam-script" type="text/javascript" src="https://www.shopbeam.com/js/widget.loader.js" async="true">
+</script>
+<object type="application/x-shockwave-flash" data="<!-- url for widget swf -->"
+  id="shopbeam-widget-swf-unbootstrapped-<!-- widget uuid (must be UNIQUE! ) -->"
+  data-shopbeam-url="<!-- shopbeam product api path (EXCLUDES protocol, port and domain) -->"
+  width="<!-- width in pixels (number) -->" height="<!-- height in pixels (number) -->">
+  <param name="movie" value="<!-- url for widget swf -->"/>
+  <!--NOTE: the "value" of FlashVars MUST be urlEncoded!!!-->
+  <param name="FlashVars" value="widgetUuid=<!-- widget uuid (must be UNIQUE! ) -->&imageUrl=<!-- image url -->"/>
+  <param name="allowscriptaccess" value="always"/>
+</object>
 ```
 
-####ExternalInterface
-`setWidgetData` must be defined: This hook receives a `String` argument which is stringified JSON object containing information about the embedded product/variant:
+### 3. Create a custom swf widget
 
-_NOTE*: the phrase "embedded variant" refers to the variant whose `id` is in the query to the shopbeam api; e.g. for api url `/v1/products?id=123456`, the embedded variant's id is `123456`. For more info referene the [Shobeam API docs](#)_
+In order to create a custom ui widget you need comunicate with Shopbeam Cart in the outer page, to do so from Flash, you need to invoke the Shopbeam js API from ActionScript.
 
-_NOTE**: the phrase "embedded image" refers to the image selected at the time of paste-code generation. This could either be one of the embedded variant's* images or an uploaded image_
-
-```actionscript
-var widgetData:Object;
-
-ExternalInterface.addCallback('setWidgetData', setWidgetData);
-function setWidgetData(data:String):void {
-	widgetData = JSON.parse(data);
-	loader.load(new URLRequest(widgetData.embedImage.url));
-}
+``` actionscript
+   // obtained from the pastecode on https://www.shopbeam.com/products
+   var widgetUuid = 'f8ff0042-562c-405e-94e3-ee5749e09b93';
+   // on click, open the Shopbeam lightbox with this product
+   ExternalInterface.call('Shopbeam.openLightbox', widgetUuid);
 ```
 
-#####Wiget Data:
+This will open a Shopbeam lightbox with the product details, giving the user the option to select variants and add to cart.
 
-######In Stock Example:
+To check a full example open [shopbeam-widget.fla](shopbeam-widget.fla), actionscript code is in [ShopbeamWidget.as](ShopbeamWidget.as)
+
+To see this working, check the [live demo page](http://shopbeam.github.io/Flash-Widget-Example/demo/public/)
+
+###Widget Data:
+
+####In Stock Example:
 ```javascript
 {
    "outOfStock": false, //boolean: true when the embedded product's variants are out of stock
@@ -165,7 +177,7 @@ function setWidgetData(data:String):void {
                ],
                "size": "", //string: size (non-standard)
                "listPrice": 42500, //integer: list price in cents
-               "salePrice": 21200, //integer: 
+               "salePrice": 21200, //integer:
                "images": [ //array: images of variant
                   { //object: image
                      "id": 30966526, //integer: image id
@@ -186,7 +198,7 @@ function setWidgetData(data:String):void {
 }
 ```
 
-######Out of Stock Example:
+####Out of Stock Example:
 ```javascript
 {
    "outOfStock": true, //boolean: true when the embedded product's variants are out of stock
