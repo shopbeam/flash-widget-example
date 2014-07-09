@@ -20,12 +20,16 @@
 				var wrapped = 'try {\n' + js + '\n}catch(err){console.error(err);console.error(err.stack);}';
 				ExternalInterface.call('eval', wrapped);
 			}
-
+      
 			Security.allowDomain('*');
-			//Security.allowDomain('shopbeamtest.com');
 
 			var widgetUuid: String = stage.loaderInfo.parameters.widgetUuid;
 			var loader: Loader = new Loader();
+      var widgetData: Object;
+      
+      ExternalInterface.addCallback('setWidgetData', function setWidgetData(data: Object): void {
+        widgetData = data;
+      });
 
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
