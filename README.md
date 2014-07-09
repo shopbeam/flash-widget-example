@@ -25,10 +25,10 @@ Copy the widget pastecode, it should look like this:
 ### 2. Embed swf widget
 
 In order to create our own custom flash widget, we just need to grab a few atributes:
-- img width and height
-- img id
-- img src (product image url)
-- img data-shopbeam-url
+- img width and height attributes
+- img id attribute
+- img src (product image url) attribute
+- img data-shopbeam-url attribute
 
 And use them in a flash object embed, here's an example for the provided example swf widget:
 
@@ -49,11 +49,11 @@ And use them in a flash object embed, here's an example for the provided example
 on the object tag:
 - data: url to the compiled swf widget
 - id: "shopbeam-widget-swf-unbootstrapped-" + the product uuid, analogous to the img id above
-- data-shopbeam-url same value as img
-- width and height: same as img
-- FlashVars: this are the parameters for the flash widget (encoded as url query parameters):
- - widgetUuid: the uuid copied from the img id above
- - imageUrl: image url (src) on the img above
+- `data-shopbeam-url` same value as on the img element
+- `width` and `height`: same value as on the img element
+- `FlashVars`: this are the parameters for the flash widget (encoded as url query parameters):
+ - `widgetUuid`: the uuid copied from the img element id above
+ - `imageUrl`: image url (src) on the img element above
 
 Here's a template version of the flash embed:
 
@@ -73,13 +73,13 @@ Here's a template version of the flash embed:
 
 ### 3. Create a custom swf widget
 
-In order to create a custom ui widget you need comunicate with Shopbeam Cart in the outer page, to do so from Flash, you need to invoke the Shopbeam js API from ActionScript.
+In order to create a custom ui widget you need comunicate with Shopbeam Lightbox in the top window document, to do so from Flash, you need to invoke the Shopbeam js API from ActionScript.
 
 ``` actionscript
    // obtained from the pastecode on https://www.shopbeam.com/products
    var widgetUuid = 'f8ff0042-562c-405e-94e3-ee5749e09b93';
    // on click, open the Shopbeam lightbox with this product
-   ExternalInterface.call('Shopbeam.openLightbox', widgetUuid);
+   ExternalInterface.call('Shopbeam.swfOpenLightbox', widgetUuid);
 ```
 
 This will open a Shopbeam lightbox with the product details, giving the user the option to select variants and add to cart.
