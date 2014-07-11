@@ -73,7 +73,7 @@ Here's a template version of the flash embed:
 
 ### 3. Create a custom swf widget
 
-In order to create a custom ui widget you need comunicate with Shopbeam Lightbox in the top window document, to do so from Flash, you need to invoke the Shopbeam js API from ActionScript.
+In order to create a custom ui widget you need communicate with Shopbeam Lightbox in the top window document, to do so from Flash, you need to invoke the Shopbeam js API from ActionScript.
 
 ``` actionscript
    // obtained from the pastecode on https://www.shopbeam.com/products
@@ -88,9 +88,20 @@ To check a full example open [shopbeam-widget.fla](shopbeam-widget.fla), actions
 
 To see this working, check the [live demo page](http://shopbeam.github.io/Flash-Widget-Example/demo/public/)
 
-###Widget Data:
+#### 4. Using Product Widget Data:
 
-####In Stock Example:
+In order to display product information provided by shopbeam in the custom widget, an actionscript callback will be invoked providing detailed information about the specific product.
+
+``` actionscript
+ExternalInterface.addCallback('setWidgetData', function setWidgetData(data: Object): void {
+  widgetData = data;
+});
+```
+
+This allows you to obtain information like product description, price and stock availability.
+Here are some examples of the data received:
+
+##### In Stock Example:
 ```javascript
 {
    "outOfStock": false, //boolean: true when the embedded product's variants are out of stock
@@ -198,7 +209,8 @@ To see this working, check the [live demo page](http://shopbeam.github.io/Flash-
 }
 ```
 
-####Out of Stock Example:
+##### Out of Stock Example:
+
 ```javascript
 {
    "outOfStock": true, //boolean: true when the embedded product's variants are out of stock
