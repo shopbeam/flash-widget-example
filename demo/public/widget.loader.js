@@ -4823,7 +4823,7 @@ buf.push("</head><body style=\"height: 100%; overflow: hidden; background: trans
       /** @const */ TEXT_WIDGET_SELECTOR : 'a[id*="shopbeam-widget-text-link"]',
       /** @const */ SWF_IFRAME_SELECTOR  : 'iframe.shopbeam-flash-frame',
       /** @const */ SWF_WIDGET_SELECTOR  : 'object[id*="shopbeam-widget-swf"]',
-      /** @const */ HOST                 : 'https://beta.shopbeam.com', //document.querySelector('script.shopbeam-script').src.match(/(^.*)\/js\/widget.loader.js$/)[1],
+      /** @const */ HOST                 : 'https://www.shopbeam.com', //document.querySelector('script.shopbeam-script').src.match(/(^.*)\/js\/widget.loader.js$/)[1],
       /** @const */ DOCUMENT_ROOT        : document.querySelector('head') || document.querySelector('body'),
       /** @const */ DOCUMENT_HEAD        : document.querySelector('head'),
       /** @const */ DOCUMENT_BODY        : bodyPromise, //document.querySelector('body'),
