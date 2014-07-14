@@ -17,7 +17,7 @@ Login to https://www.shopbeam.com/products and select a product. Please use the 
 Email: widgetExample@shopbeam.com  
 Password: widgetExample
 
-Copy the widget pastecode, it should look like this:
+After clicking on a product in the list, you can copy the 'widget pastecode' in your clipboard by clicking the orange 'copy' button on the lower right corner of the product detail window. It should look like this:
 
 ``` html
 <script class="shopbeam-script" type="text/javascript" src="https://www.shopbeam.com/js/widget.loader.js" async="true">
