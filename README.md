@@ -32,7 +32,7 @@ After clicking on a product in the list, you can copy the 'widget pastecode' in 
 
 ### 2. Embed swf widget
 
-In order to create our own custom flash widget, we want to grab a few attributes from the widget pastecode:
+In order to obtain a flash swf widget, we want to grab several attributes from the image widget pastecode:
 
 - img width and height attributes
 - img id attribute
