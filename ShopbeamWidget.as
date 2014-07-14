@@ -1,66 +1,1 @@
-﻿package {
-	import flash.system.*;
-	import flash.net.*;
-	import flash.external.*;
-	import flash.display.*;
-	import flash.events.*;
-
-	public class ShopbeamWidget extends MovieClip {
-		public function ShopbeamWidget() {
-
-			function log(): void {
-				ExternalInterface.call('console.log', arguments.join(' '));
-			}
-
-			function logError(): void {
-				ExternalInterface.call('console.error', arguments.join(' '));
-			}
-			
-			function executeJS(js): void {
-				var wrapped = 'try {\n' + js + '\n}catch(err){console.error(err);console.error(err.stack);}';
-				ExternalInterface.call('eval', wrapped);
-			}
-      
-			Security.allowDomain('*');
-
-			var widgetUuid: String = stage.loaderInfo.parameters.widgetUuid;
-			var loader: Loader = new Loader();
-      var widgetData: Object;
-      
-      ExternalInterface.addCallback('setWidgetData', function setWidgetData(data: Object): void {
-        widgetData = data;
-      });
-
-			stage.align = StageAlign.TOP_LEFT;
-			stage.scaleMode = StageScaleMode.NO_SCALE;
-
-			var button: Sprite = new Sprite();
-			button.addChild(loader);
-			button.buttonMode = true;
-			button.useHandCursor = true;
-			addChild(button);
-
-			function loadingError(e: IOErrorEvent): void {
-				logError('widget with id: ' + widgetUuid + ' failed to load image');
-			}
-
-			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, loadingError);
-
-			function doneLoad(e: Event): void {
-				loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, doneLoad);
-				loader.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, loadingError);
-			}
-			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, doneLoad);
-
-			function loaderClickHandler(e: Event): void {
-				log('widgetOpenLightbox' + widgetUuid);
-				executeJS("Shopbeam.swfOpenLightbox('" + widgetUuid + "')");
-			}
-
-			loader.addEventListener(MouseEvent.CLICK, loaderClickHandler);
-
-			log('loading image: ' + stage.loaderInfo.parameters.imageUrl);
-			loader.load(new URLRequest(stage.loaderInfo.parameters.imageUrl));
-		}
-	}
-}
+﻿package {	import flash.system.*;	import flash.net.*;	import flash.external.*;	import flash.display.*;	import flash.events.*;	import fl.transitions.easing.*;	import fl.transitions.Tween;  import flash.globalization.CurrencyFormatter;	public class ShopbeamWidget extends MovieClip {		public function ShopbeamWidget() {      brandName.alpha = 0;      productName.alpha = 0;      listPrice.alpha = 0;      salePrice.alpha = 0;      			var SHOP_HERE_TWEEN_X: int = 180;			var SHOP_HERE_INITIAL_X: int = hoverMovie.x;			var bagActive: Sprite = hoverMovie.bagActive;			var bagInactive: Sprite = hoverMovie.bagInactive;			hoverArea.addEventListener(MouseEvent.MOUSE_OVER, function(event:MouseEvent):void {        var tweenListPriceAlpha:Tween = new Tween(listPrice, "alpha", Strong.easeOut, listPrice.alpha, 1, 30);        if (listPrice.text !== salePrice.text) {          var tweenStrikeThroughAlpha:Tween = new Tween(strikeThrough, "alpha", Strong.easeOut, strikeThrough.alpha, 1, 30);          var tweenSalePriceAlpha:Tween = new Tween(salePrice, "alpha", Strong.easeOut, salePrice.alpha, 1, 30);        }                var tweenBrandNameAlpha: Tween = new Tween(brandName, "alpha", Strong.easeOut, brandName.alpha, 1, 30);        var tweenProductNameAlpha: Tween = new Tween(productName, "alpha", Strong.easeOut, brandName.alpha, 1, 30);         var tweenActiveAlpha: Tween = new Tween(bagActive, "alpha", Strong.easeOut, bagActive.alpha, 1, 30);        var tweenInactiveAlpha: Tween = new Tween(bagInactive, "alpha", Strong.easeOut, bagInactive.alpha, 0, 30);        var tweenBackdropAlpha: Tween = new Tween(backdrop, "alpha", Strong.easeOut, backdrop.alpha, 0.6, 30);        var tweenHoverMovieX: Tween = new Tween(hoverMovie, "x", Strong.easeOut, hoverMovie.x, SHOP_HERE_TWEEN_X, 30);			});			hoverArea.addEventListener(MouseEvent.MOUSE_OUT, function(event:MouseEvent):void {        var tweenSalePriceAlpha: Tween = new Tween(salePrice, "alpha", Strong.easeOut, salePrice.alpha, 0, 30);        var tweenListPriceAlpha:Tween = new Tween(listPrice, "alpha", Strong.easeOut, listPrice.alpha, 0, 30);        var tweenStrikeThroughAlpha:Tween = new Tween(strikeThrough, "alpha", Strong.easeOut, strikeThrough.alpha, 0, 30);                var tweenBrandNameAlpha: Tween = new Tween(brandName, "alpha", Strong.easeOut, brandName.alpha, 0, 30);        var tweenProductNameAlpha: Tween = new Tween(productName, "alpha", Strong.easeOut, brandName.alpha, 0, 30);         var tweenActiveAlpha: Tween = new Tween(bagActive, "alpha", Strong.easeOut, bagActive.alpha, 0, 1, true);        var tweenInactiveAlpha: Tween = new Tween(bagInactive, "alpha", Strong.easeOut, bagInactive.alpha, 1, 1, true);        var tweenBackdropAlpha: Tween = new Tween(backdrop, "alpha", Strong.easeOut, backdrop.alpha, 0, 30);        var tweenHoverMovieX: Tween = new Tween(hoverMovie, "x", Strong.easeOut, hoverMovie.x, SHOP_HERE_INITIAL_X, 1, true);			});      			function log(): void {				ExternalInterface.call('console.log', arguments.join(' '));			}			function logError(): void {				ExternalInterface.call('console.error', arguments.join(' '));			}			function executeJS(js): void {				var wrapped = 'try {\n' + js + '\n}catch(err){console.error(err);console.error(err.stack);}';				ExternalInterface.call('eval', wrapped);			}			Security.allowDomain('*');			var widgetUuid: String = stage.loaderInfo.parameters.widgetUuid;			var loader: Loader = new Loader();			var widgetData: Object;      ExternalInterface.addCallback('setWidgetData', function setWidgetData(data: String): void {        widgetData = JSON.parse(data);        brandName.text = widgetData.initialProduct.brandName;        productName.text = widgetData.initialProduct.name;                var dollarFormatter: CurrencyFormatter = new CurrencyFormatter('usd');        listPrice.text = dollarFormatter.format((widgetData.initialVariant.listPrice / 100), true);        //strikeThrough.width ...        salePrice.text = dollarFormatter.format((widgetData.initialVariant.salePrice / 100), true);      });      			stage.align = StageAlign.TOP_LEFT;      stage.scaleMode = StageScaleMode.NO_SCALE;			var button: Sprite = new Sprite();      button.addChild(loader);            //required for `.useHandCursor` to work      hoverArea.buttonMode = true;      hoverArea.useHandCursor = true;      addChild(button);						setChildIndex(button, 0);			function loadingError(e: IOErrorEvent): void {				logError('widget with id: ' + widgetUuid + ' failed to load image');			}			loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR, loadingError);			function doneLoad(e: Event): void {				loader.contentLoaderInfo.removeEventListener(Event.COMPLETE, doneLoad);				loader.contentLoaderInfo.removeEventListener(IOErrorEvent.IO_ERROR, loadingError);			}			loader.contentLoaderInfo.addEventListener(Event.COMPLETE, doneLoad);			function loaderClickHandler(e: Event): void {				log('widgetOpenLightbox' + widgetUuid);				executeJS("Shopbeam.swfOpenLightbox('" + widgetUuid + "')");			}			hoverArea.addEventListener(MouseEvent.CLICK, loaderClickHandler);			log('loading image: ' + stage.loaderInfo.parameters.imageUrl);			loader.load(new URLRequest(stage.loaderInfo.parameters.imageUrl));		}	}}
