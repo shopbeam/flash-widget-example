@@ -39,7 +39,7 @@ In order to obtain a flash swf widget, we want to grab these four attributes fro
 - img src (product image url) attribute
 - img data-shopbeam-url attribute
 
-We want to add these attributes to a flash object embed, here's the code we are using for the example swf widget on our [Demo Page](http://shopbeam.github.io/flash-widget-example/demo/public/):
+We then want to add these attributes to a flash embed object tag, here's the code we are using for the example swf widget on our [Demo Page](http://shopbeam.github.io/flash-widget-example/demo/public/):
 
 ``` html
 <script class="shopbeam-script" type="text/javascript" src="https://www.shopbeam.com/js/widget.loader.js" async="true">
@@ -55,7 +55,7 @@ We want to add these attributes to a flash object embed, here's the code we are 
 </object>
 ```
 
-on the object tag:
+Required attributes on the object tag:
 - data: url to the compiled swf widget
 - id: "shopbeam-widget-swf-unbootstrapped-" + the product uuid, analogous to the img id above
 - `data-shopbeam-url` same value as on the img element
@@ -64,7 +64,7 @@ on the object tag:
  - `widgetUuid`: the uuid copied from the img element id above
  - `imageUrl`: image url (src) on the img element above
 
-Here's a template version of the flash embed:
+Here's a template version of the flash embed which has placeholders for all the required values:
 
 ``` html
 <script class="shopbeam-script" type="text/javascript" src="https://www.shopbeam.com/js/widget.loader.js" async="true">
