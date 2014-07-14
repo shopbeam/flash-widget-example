@@ -32,13 +32,14 @@ Copy the widget pastecode, it should look like this:
 
 ### 2. Embed swf widget
 
-In order to create our own custom flash widget, we just need to grab a few atributes:
+In order to create our own custom flash widget, we want to grab a few attributes from the widget pastecode:
+
 - img width and height attributes
 - img id attribute
 - img src (product image url) attribute
 - img data-shopbeam-url attribute
 
-And use them in a flash object embed, here's an example for the provided example swf widget:
+We want to add these attributes to a flash object embed, here's the code we are using for the example swf widget on our [Demo Page](http://shopbeam.github.io/flash-widget-example/demo/public/):
 
 ``` html
 <script class="shopbeam-script" type="text/javascript" src="https://www.shopbeam.com/js/widget.loader.js" async="true">
