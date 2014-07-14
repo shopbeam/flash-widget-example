@@ -1,4 +1,4 @@
-Shopbeam AdShops Flash Widget Example
+Shopbeam Flash Widget Example
 ====================
 
 The Shopbeam AdShops product provides tools for advertisers and publishers to create and serve display advertisements which when clicked or hovered over load product detail panels on-site which can be used to add items to a universal cart and purchase them without ever leaving the host website.
