@@ -79,6 +79,18 @@ Here's a template version of the flash embed:
 </object>
 ```
 
+#### Image Transformations
+
+The provided image url parameter has sizing parameters that you can modify to obtain the product image for different sizes, in the provided example you can find this part of the url ```/image/fetch/w_150/``` and modify it with this optional parameters:
+
+- ```w_<image width in pixels>```
+- ```h_<image height in pixels>```
+- ```c_<cropping mode>``` (eg: scale, fit, fill)
+
+For example: ```/image/fetch/w_300,h_600,c_fill/``` (width 300px, height 600px, cropping mode: fill)
+
+You can find more details about cloudinary image transformations [here](http://cloudinary.com/documentation/image_transformations)
+
 ### 3. Create a custom swf widget
 
 In order to create a custom ui widget you need communicate with Shopbeam Lightbox in the top window document, to do so from Flash, you need to invoke the Shopbeam js API from ActionScript.
