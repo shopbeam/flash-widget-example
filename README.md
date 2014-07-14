@@ -1,7 +1,7 @@
 Shopbeam Flash Widget Example
 ====================
 
-The Shopbeam AdShops product provides tools for advertisers and publishers to create and serve display advertisements which when clicked or hovered over load product detail panels on-site which can be used to add items to a universal cart and purchase them without ever leaving the host website.
+Shopbeam provides tools for advertisers and publishers to create and serve display advertisements which when clicked or hovered over load product detail panels on-site which can be used to add items to a universal cart and purchase them without ever leaving the host website.
 
 The Shopbeam ‘widget’ is the element that is embedded onto the hosting site’s page or served over an ad network which the user can then interact with to begin their on-site shopping experience. The Shopbeam widget can be either an html image or a flash swf. The instructions below are for creating and embedding a flash swf Shopbeam widget.
 
