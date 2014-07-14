@@ -108,7 +108,7 @@ To check a full example open [shopbeam-widget.fla](shopbeam-widget.fla), actions
 
 To see this working, check the [live demo page](http://shopbeam.github.io/flash-widget-example/demo/public/)
 
-#### 4. Using Product Widget Data:
+### 4. Using Product Widget Data:
 
 In order to display product information provided by shopbeam in the custom widget, an actionscript callback will be invoked providing detailed information about the specific product.
 
@@ -121,7 +121,7 @@ ExternalInterface.addCallback('setWidgetData', function setWidgetData(data: Obje
 This allows you to obtain information like product description, price and stock availability.
 Here are some examples of the data received:
 
-##### In Stock Example:
+#### In Stock Example:
 ```javascript
 {
    "outOfStock": false, //boolean: true when the embedded product's variants are out of stock
@@ -228,7 +228,7 @@ Here are some examples of the data received:
 }
 ```
 
-##### Out of Stock Example:
+#### Out of Stock Example:
 
 ```javascript
 {
