@@ -15,6 +15,7 @@ Usage
 Go to https://www.shopbeam.com/products and select a product. This page requires you to login, please use the credentials:
 
 Email: widgetExample@shopbeam.com 
+
 Password: widgetExample
 
 Copy the widget pastecode, it should look like this:
