@@ -1,12 +1,12 @@
 Shopbeam AdShops Flash Widget Example
 ====================
 
-The Shopbeam AdShops product provides tools for advertisers and publishers to create and serve display advertisements which when clicked or hovered over load product detail panels on-site which can be used to add items to a universal cart and purchase them without ever leaving the host website. 
+The Shopbeam AdShops product provides tools for advertisers and publishers to create and serve display advertisements which when clicked or hovered over load product detail panels on-site which can be used to add items to a universal cart and purchase them without ever leaving the host website.
 
-The Shopbeam ‘widget’ is the element that is embedded onto the hosting site’s page or served over an ad network which the user can then interact with to begin their on-site shopping experience. The Shopbeam widget can be either an html image or a flash swf. The instructions below are for creating and embedding a flash swf Shopbeam widget. 
+The Shopbeam ‘widget’ is the element that is embedded onto the hosting site’s page or served over an ad network which the user can then interact with to begin their on-site shopping experience. The Shopbeam widget can be either an html image or a flash swf. The instructions below are for creating and embedding a flash swf Shopbeam widget.
 
 The working demo for this overview can be found here: [Demo Page](http://shopbeam.github.io/flash-widget-example/demo/public/)
-  
+
 Usage
 -----
 
@@ -74,6 +74,18 @@ Here's a template version of the flash embed:
   <param name="allowscriptaccess" value="always"/>
 </object>
 ```
+
+#### Image Transformations
+
+The provided image url parameter has sizing parameters that you can modify to obtain the product image for different sizes, in the provided example you can find this part of the url ```/image/fetch/w_150/``` and modify it with these optional parameters:
+
+- ```w_<image width in pixels>```
+- ```h_<image height in pixels>```
+- ```c_<cropping mode>``` (eg: scale, fit, fill)
+
+For example: ```/image/fetch/w_300,h_600,c_fill/``` (width 300px, height 600px, cropping mode: fill)
+
+You can find more details about cloudinary image transformations [here](http://cloudinary.com/documentation/image_transformations)
 
 ### 3. Create a custom swf widget
 
