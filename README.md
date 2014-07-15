@@ -6,7 +6,7 @@ Overview
 
 Shopbeam provides tools for advertisers and publishers to create and serve display advertisements which when clicked or hovered over load product detail panels on-site which can be used to add items to a universal cart and purchase them without leaving the host website.
 
-The Shopbeam ‘widget’ is the element that is embedded onto the hosting site’s page or served over an ad network which the user can interact with to begin their on-site shopping experience. The Shopbeam widget can be either an html image or a flash swf. The instructions below are for creating and embedding a flash swf Shopbeam widget.
+The Shopbeam 'widget' is the element that is embedded onto the hosting site's page or served over an ad network which the user can interact with to begin their on-site shopping experience. The Shopbeam widget can be either an html image or a flash swf. The instructions below are for creating and embedding a flash swf Shopbeam widget.
 
 The working demo for this example can be found here: [Demo Page](http://shopbeam.github.io/flash-widget-example/demo/public/)
 
@@ -64,11 +64,11 @@ We then want to add these attributes to a flash embed object tag, here's the cod
 Required attributes on the object tag:
 - data: url to the compiled swf widget
 - id: "shopbeam-widget-swf-unbootstrapped-" + the product uuid, analogous to the img id above
-- `data-shopbeam-url` same value as on the img element
-- `width` and `height`: same value as on the img element
-- `FlashVars`: this are the parameters for the flash widget (encoded as url query parameters):
- - `widgetUuid`: the uuid copied from the img element id above
- - `imageUrl`: image url (src) on the img element above
+- 'data-shopbeam-url' same value as on the img element
+- 'width' and 'height': same value as on the img element
+- 'FlashVars': this are the parameters for the flash widget (encoded as url query parameters):
+ - 'widgetUuid': the uuid copied from the img element id above
+ - 'imageUrl': image url (src) on the img element above
 
 Here's a template version of the flash embed html which has placeholders for the required values:
 
