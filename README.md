@@ -105,7 +105,7 @@ To check a full example open [shopbeam-widget.fla](shopbeam-widget.fla), actions
 
 To see this working, check the [live demo page](http://shopbeam.github.io/flash-widget-example/demo/public/)
 
-## Using Product Widget Data:
+#### Using Product Widget Data:
 
 In order to display product information provided by shopbeam in the custom widget, an actionscript callback will be invoked providing detailed information about the specific product.
 
