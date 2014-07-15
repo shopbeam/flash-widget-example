@@ -8,7 +8,7 @@ Shopbeam provides tools for advertisers and publishers to create and serve displ
 
 The Shopbeam ‘widget’ is the element that is embedded onto the hosting site’s page or served over an ad network which the user can interact with to begin their on-site shopping experience. The Shopbeam widget can be either an html image or a flash swf. The instructions below are for creating and embedding a flash swf Shopbeam widget.
 
-The working demo for this overview can be found here: [Demo Page](http://shopbeam.github.io/flash-widget-example/demo/public/)
+The working demo for this example can be found here: [Demo Page](http://shopbeam.github.io/flash-widget-example/demo/public/)
 
 Usage
 -----
