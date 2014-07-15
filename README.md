@@ -101,7 +101,7 @@ In order to create a custom ui widget you need communicate with Shopbeam Lightbo
 
 This will open a Shopbeam lightbox with the product details, giving the user the option to select variants and add to cart.
 
-To check a full example open [shopbeam-widget.fla](shopbeam-widget.fla), actionscript code is in [ShopbeamWidget.as](ShopbeamWidget.as)
+To check a full example open download the [sample files](https://github.com/shopbeam/flash-widget-example/raw/master/shopbeam-flash-widget-source-files.zip) which contain the [shopbeam-widget.fla](shopbeam-widget.fla) and actionscript code file [ShopbeamWidget.as](ShopbeamWidget.as)
 
 To see this working, check the [live demo page](http://shopbeam.github.io/flash-widget-example/demo/public/)
 
