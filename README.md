@@ -13,7 +13,7 @@ The working demo for this example can be found here: [Demo Page](http://shopbeam
 Usage
 -----
 
-There are currently two methods available to embed a Shopbeam flash swf widget. One is to use our sample swf which uses product data added to the the embed html, the other is to publish your own swf using the the actionscript code referenced below. 
+There are currently two methods available to embed a Shopbeam flash swf widget. One is to use our sample swf which uses product data added to the embed html, the other is to publish your own swf using the actionscript code referenced below. 
 
 
 ### 1.  Embed Method One - Using the Shopbeam Sample .swf
