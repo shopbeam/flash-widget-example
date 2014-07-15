@@ -102,7 +102,8 @@ In order to create a custom ui widget you need communicate with Shopbeam Lightbo
 
 ``` actionscript
    // obtained from the pastecode on https://www.shopbeam.com/products
-   var widgetUuid = 'f8ff0042-562c-405e-94e3-ee5749e09b93';
+   var widgetUuid:String = stage.loaderInfo.parameters.widgetUuid;
+
    // on click, open the Shopbeam lightbox with this product
    ExternalInterface.call('Shopbeam.swfOpenLightbox', widgetUuid);
 ```
