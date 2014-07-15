@@ -86,9 +86,9 @@ Here's a template version of the flash embed html which has placeholders for the
 </object>
 ```
 
-Reference the [Shopbeam Widget Sample Swf](https://github.com/shopbeam/flash-widget-example/blob/master/single-variant.swf?raw=true) file on the environment your newly written html embed code is located, and you should have yourself a shoppable swf. 
+Using this html code snippit template reference the [Shopbeam Widget Sample Swf](https://github.com/shopbeam/flash-widget-example/blob/master/single-variant.swf?raw=true) file on the environment where your newly written html embed code is located, in addition to filling in the other required parameters specified earlier in this document, and you should have yourself a shoppable swf. 
 
-The [demo page is here](http://shopbeam.github.io/flash-widget-example/demo/public/) for reference. 
+Please see the [demo page here](http://shopbeam.github.io/flash-widget-example/demo/public/) for reference. 
 
 
 ### 2.  Embed Method Two - Custom Flash .swf 
