@@ -93,6 +93,12 @@ Please see the [demo page here](http://shopbeam.github.io/flash-widget-example/d
 
 ### 2.  Embed Method Two - Custom Flash .swf 
 
+When embedding your own custom swf, it's required for the widget.loader.js script to be referenced in both the context of the page where the widget is embedded (usually an iframe), and also the top level host page where the cart and product browser is loaded. The html tag for the widget loader script is:
+
+``` html
+<script class="shopbeam-script" type="text/javascript" src="https://www.shopbeam.com/js/widget.loader.js" async="true"></script>
+```
+
 In order to create a custom ui widget you need communicate with Shopbeam Lightbox in the top window document, to do so from Flash, you need to invoke the Shopbeam js API from ActionScript.
 
 ``` actionscript
