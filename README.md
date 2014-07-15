@@ -120,6 +120,6 @@ ExternalInterface.addCallback('setWidgetData', function setWidgetData(data: Obje
 
 This allows you to obtain information like product description, price and stock availability.
 
-
+Please refer to [product data json samples](https://github.com/shopbeam/flash-widget-example/blob/master/json-product-data-samples.md) for reference when working with product widget data.
 
 
