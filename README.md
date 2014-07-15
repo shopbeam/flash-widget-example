@@ -70,7 +70,7 @@ Required attributes on the object tag:
  - `widgetUuid`: the uuid copied from the img element id above
  - `imageUrl`: image url (src) on the img element above
 
-Here's a template version of the flash embed which has placeholders for the required values:
+Here's a template version of the flash embed html which has placeholders for the required values:
 
 ``` html
 <script class="shopbeam-script" type="text/javascript" src="https://www.shopbeam.com/js/widget.loader.js" async="true">
