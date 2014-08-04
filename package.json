@@ -17,7 +17,7 @@
     "url": "https://github.com/shopbeam/Flash-Widget-Example/issues"
   },
   "homepage": "https://github.com/shopbeam/Flash-Widget-Example",
-  "dependencies": {
+  "devDependencies": {
     "node-static": "^0.7.3"
   }
 }
