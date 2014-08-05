@@ -14,6 +14,7 @@ import flash.geom.Rectangle;
 
 public class ShopbeamWidgetMulti extends MovieClip {
 	var prod_x:int = 0;
+	var index:int;
   public function ShopbeamWidgetMulti() {
     product.brandName.alpha = 0;
     product.productName.alpha = 0;
@@ -93,7 +94,6 @@ public class ShopbeamWidgetMulti extends MovieClip {
     var loader:Loader = new Loader();
     var widgetData:Object;
 	var productDat;
-	var index;
 	
     ExternalInterface.addCallback('setWidgetData', function setWidgetData(data:String, productData: String):void {
       productDat = JSON.parse(productData);
@@ -108,7 +108,7 @@ public class ShopbeamWidgetMulti extends MovieClip {
 
 		  product.listPrice.text = dollarFormatter.format((widgetData.initialVariant.listPrice / 100), true);
 		  //strikeThrough.width ...
-		  product.salePrice.text = dollarFormatter.format((widgetData.initialVariant.salePrice / 100), true);			
+		  product.salePrice.text = dollarFormatter.format((widgetData.initialVariant.salePrice / 100), true);
 	  } else {
 		  log("new prod");
           var spr:Sprite = new Sprite();
@@ -121,6 +121,7 @@ public class ShopbeamWidgetMulti extends MovieClip {
 		  prod.getChildByName("image").x = 0;
 		  prod.getChildByName("image").y = 0;
 		  prod.setChildIndex(spr, 0);
+		  prod.name = productDat.index;
 		  
 		  prod_x += 300;
 		  prod.brandName.text = widgetData.initialProduct.brandName;
@@ -165,8 +166,13 @@ public class ShopbeamWidgetMulti extends MovieClip {
     loader.contentLoaderInfo.addEventListener(Event.COMPLETE, doneLoad);
 
     function loaderClickHandler(e:Event):void {
-      log('widgetOpenLightbox' + widgetUuid);
-      var index = 0;
+	  if(e.currentTarget.parent.name == "product"){
+		index = 0;
+	  }
+	  else {
+		index = e.currentTarget.parent.name;
+	  }
+      log('widgetOpenLightbox: ' + widgetUuid + " index: " + index);
       executeJS("Shopbeam.swfOpenLightbox('" + widgetUuid + "', " + index + ")");
     }
 
