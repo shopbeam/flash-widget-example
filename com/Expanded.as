@@ -19,7 +19,7 @@
 		private var autoCloseTimer: uint;
 		public var item_x: int = 0;
 		public const API_KEY = "e8abf83f-38f2-450b-80e5-32d206ce85e6";
-		public const API_URL:String = "https://localhost:4000/v1/products"
+		public const API_URL:String = "https://localhost:4000/v1/products";
 		public var productIds: Array = ['9009643', '9009639', '9009644'];
 		
 		public var urlArr: Array = new Array();
@@ -99,7 +99,8 @@
 			}
 		}
 		public function widgetLoaderExists(): int {
-			var exists: * = executeJS('Shopbeam.checkLoadedFromSwf()');
+			var exists: * = ExternalInterface.call('eval', 'typeof window.Shopbeam !== "undefined"');
+			log(exists);
 			if (exists) {
 				return 1;
 			} else {
