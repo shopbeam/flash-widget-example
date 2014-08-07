@@ -28,7 +28,7 @@ If the page where the widget is loaded, it's referenced widget.loader.js, the wi
 Clickable area
 -----
 
-The flash file has a MovieClip in it's library called "itemArea". For each product id in the productIds array, a clickable area like this is added side by side, that will take you (or open the lightbox in case there's no widget.loader.js) to the proper product.
+The flash file has a MovieClip in it's library called "itemArea". For each product id in the productIds array, a clickable area like this is added side by side, that will take you (or open the lightbox in case widget.loader.js is referenced on the page) to the proper product.
 
 ![Example clickable area](http://imgur.com/NxkuZxp.png "Example clickable area")
 
