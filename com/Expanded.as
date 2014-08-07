@@ -247,18 +247,16 @@
 				case 'click':
 					//track('click', 'learn_more');
 					//track('message', 'learn_more');
-
-					//loader.load(request);
 					break;
 			}
 		}
 		public function autoClose(): void {
-			track('view ', 'auto_close');
-			track('message', 'auto_close');
+			//track('view ', 'auto_close');
+			//track('message', 'auto_close');
 		}
 		public function closeExpansion(event: MouseEvent): void {
-			track('click', 'user_close');
-			track('message', 'user_close');
+			//track('click', 'user_close');
+			//track('message', 'user_close');
 		}
 		public function _catch($e: * ): void {
 			if ($e.message.split('http://').length >= 2) {
