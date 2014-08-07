@@ -34,6 +34,6 @@ The flash file has a MovieClip in it's library called "itemArea". For each produ
 
 In case you want to modify the height and width of the area to be clicked for each product (ItemArea in Flash), you may do so by modifying it from the library:
 
-[Modifying Item Area](http://i.imgur.com/kloAaUv.png)
+![Modifying Item Area](http://i.imgur.com/kloAaUv.png)
 
 
