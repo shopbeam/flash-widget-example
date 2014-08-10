@@ -9,6 +9,7 @@
 
 	import com.greensock.*;
 	import com.greensock.easing.*;
+	import com.Shopbeam;
 
 	import com.condenast.ISwf;
 
@@ -20,94 +21,34 @@
 		public var item_x: int = 0;
 		public const API_KEY = "e8abf83f-38f2-450b-80e5-32d206ce85e6";
 		public const API_URL:String = "https://localhost:4000/v1/products";
-		public var productIds: Array = ['9009643', '9009639', '9009644'];
 		
 		public var urlArr: Array = new Array();
 
-		public function Expanded() {
+		public function Expanded() {	
+			super();
 			Security.allowDomain("*");
+			var shopbeam:Shopbeam = new Shopbeam("e8abf83f-38f2-450b-80e5-32d206ce85e6", this);
+			//shopbeam.linkProductsFromDOM();	
+			shopbeam.makeMovieClipLinkProduct("childName", "9009638");
+
+			
 			try {
 				//var swfLocation:String = ExternalInterface.call("window.location.href.toString");
 				//if(!swfLocation) _init(function(arg1:*, arg2:*):void{trace('TRACK =', arg1 + ',', arg2)});
 			} catch (e: Error) {
 				trace(e.message);
 			}
-			if (widgetLoaderExists()) {
-				ExternalInterface.addCallback('setWidgetData', function setWidgetData(data: String, productData: String): void {
-					var prodData: Object = JSON.parse(productData);
-					var index: int = prodData.index;
-					var area: MovieClip = new ItemArea();
-					addChild(area);
-					area.x = item_x;
-					item_x += area.width;
-					area.y = 0;
-					area.alpha = 0;
-					area.name = index.toString();
-					area.buttonMode = true;
-					area.useHandCursor = true;
-					area.addEventListener(MouseEvent.CLICK, onClickProductArea);
-				});
-			} else {
-				var requestVars: URLVariables = new URLVariables();
-				var request: URLRequest = new URLRequest();
-				var loader: URLLoader;
-
-				request.url = API_URL;
-				requestVars.apiKey = API_KEY;
-				requestVars.image = "1";
-				request.method = URLRequestMethod.GET;
-
-				for each(var id in productIds) {
-					loader = new URLLoader();
-					loader.dataFormat = URLLoaderDataFormat.TEXT;
-					loader.addEventListener(Event.COMPLETE, loaderCompleteHandler);
-					requestVars.id = id;
-					request.data = requestVars;
-					loader.load(request);
-				}
-			}
 			cta_mc.addEventListener(MouseEvent.ROLL_OVER, ctaManager);
 			cta_mc.addEventListener(MouseEvent.CLICK, ctaManager);
 			_init();
 		}
-		public function loaderCompleteHandler(e: Event): void {
-			var jsonObject: Object = JSON.parse(e.target.data);
-			var area: MovieClip = new ItemArea();
-			area.useHandCursor = true;
-			area.buttonMode = true;
-			addChild(area);
-			area.x = item_x;
-			item_x += area.width;
-			area.y = 0;
-			area.name = jsonObject[0].variants[0].id.toString();
-			urlArr[jsonObject[0].variants[0].id.toString()] = jsonObject[0].variants[0].sourceUrl;
-			area.alpha = 0;
-			area.addEventListener(MouseEvent.CLICK, onClickProductAreaNoWidget);
-		}
-		public function onClickProductArea(e: MouseEvent): void {
-			var widgetUuid: String = stage.loaderInfo.parameters.widgetUuid;
-			if (widgetUuid && ExternalInterface.available) {
-				executeJS("Shopbeam.swfOpenLightbox('" + widgetUuid + "', " + e.target.name + ")");
-			}
-		}
-		public function onClickProductAreaNoWidget(e:MouseEvent):void{
-			navigateToURL(new URLRequest(urlArr[e.target.name]), "_blank");
-		}
+
 		function log(args: * ): void {
 			if (ExternalInterface.available) {
 				ExternalInterface.call('console.log', arguments.join(' '));
 			}
 		}
-		public function widgetLoaderExists(): int {
-			var exists: * = ExternalInterface.call('eval', 'typeof window.Shopbeam !== "undefined"');
-			log(exists);
-			if (exists) {
-				return 1;
-			} else {
-				log("no widget.loader.js");
-				return 0;
-			}
-		}
+
 		public function _init(): void {
 			//track = event;
 
@@ -128,7 +69,7 @@
 			border.graphics.lineStyle(1, 0x333333);
 			border.graphics.drawRect(0, 0, stageW - .5, stageH - .5);
 			addChild(border);
-
+			
 			cta_mc.buttonMode = true;
 
 			close_mc.buttonMode = true;
