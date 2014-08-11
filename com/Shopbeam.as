@@ -1,4 +1,4 @@
-﻿package com {
+﻿﻿package com {
 	import flash.display.*;
 	import flash.display.Stage;
 	import flash.events.*;
