@@ -13,6 +13,7 @@
 		public const API_URL: String = "https://localhost:4000/v1/products";
 		public var main: MovieClip;
 		public var stageRef: Stage;
+		public var index:Number = 0;
 		private var widgetLoader: int = 0;
 		public var x_area:Number = 0;
 
@@ -41,7 +42,11 @@
 			var requestVars: URLVariables = new URLVariables();
 			var request: URLRequest = new URLRequest();
 			var loader: URLLoader;
-
+			var prodUrl: String = "/v1/products?id=" + productId + "&image=1&apiKey=" + API_KEY;
+			var index:Number = this.index;
+			
+			///v1/products?id=9009644&image=1&apiKey=e8abf83f-38f2-450b-80e5-32d206ce85e6
+			
 			request.url = API_URL;
 			requestVars.apiKey = API_KEY;
 			requestVars.image = "1";
@@ -51,8 +56,9 @@
 			loader.dataFormat = URLLoaderDataFormat.TEXT;
 			loader.addEventListener(Event.COMPLETE, function callHandler(e:Event){
 					var jsonObject: Object = JSON.parse(e.target.data);
-					loaderCompleteHandler(mc_name, jsonObject);
-				});
+					loaderCompleteHandler(mc_name, jsonObject, prodUrl, index);
+				}, false, 0, true);
+			this.index += 1;
 			requestVars.id = productId;
 			request.data = requestVars;
 			loader.load(request);
@@ -60,13 +66,23 @@
 			return true;
 		}
 		
-		public function loaderCompleteHandler(mc_name:String, data:Object): void {
+		public function loaderCompleteHandler(mc_name:String, data:Object, registerProductUrl:String, index:Number): void {
 			var mc: MovieClip;
+			var i  = index;
+			var wl = this.widgetLoader;
 			mc = this.main.getChildByName(mc_name) as MovieClip;
 			mc.alpha = 0;
+			if(wl){
+				executeJS("Shopbeam.swfWidgetRegisterProduct('" + main.stage.loaderInfo.parameters.widgetUuid + "', '" + registerProductUrl + "')");
+			}
+			log(main.stage.loaderInfo.parameters.widgetUuid + " " + registerProductUrl);
 			mc.addEventListener(MouseEvent.CLICK, function (e: Event) {
-				onClickProductArea(data[0].variants[0].sourceUrl);
-			});
+				if(!wl){
+					onClickProductArea(data[0].variants[0].sourceUrl);
+				} else {
+					onClickProductArea(i.toString());
+				}
+			}, false, 0, true);
 		}		
 		
 		public function linkProductsFromDOM():void{
