@@ -52,9 +52,7 @@
 			var loader: URLLoader;
 			var prodUrl: String = "/v1/products?id=" + productId + "&image=1&apiKey=" + API_KEY;
 			var index:Number = this.index;
-			
-			///v1/products?id=9009644&image=1&apiKey=e8abf83f-38f2-450b-80e5-32d206ce85e6
-			
+						
 			request.url = API_URL;
 			requestVars.apiKey = API_KEY;
 			requestVars.image = "1";
@@ -80,12 +78,12 @@
 			var wl = this.widgetLoaderExists();
 			var result:Object;
 			mc = this.main.getChildByName(mc_name) as MovieClip;
+			mc.buttonMode = true;
+			mc.useHandCursor = true;
 			mc.alpha = 0;
 			
-			if(ExternalInterface.available && ExternalInterface.call('eval', 'document.getElementsByClassName("shopbeam-script").length')){
-				registerProductInWidget(registerProductUrl);
-			}
-			//result = executeJS("Shopbeam.swfWidgetRegisterProduct('" + main.stage.loaderInfo.parameters.widgetUuid + "', '" + registerProductUrl + "')");
+			registerProductInWidget(registerProductUrl);
+
 			mc.addEventListener(MouseEvent.CLICK, function (e: Event) {
 				if(!wl){
 					onClickProductArea(data[0].variants[0].sourceUrl);

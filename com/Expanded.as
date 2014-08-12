@@ -18,15 +18,12 @@
 		private var stageH: Number = 418;
 		private var track: Function;
 		private var autoCloseTimer: uint;
-		
-		public var urlArr: Array = new Array();
 
 		public function Expanded() {	
 			super();
 			var shopbeam:Shopbeam = new Shopbeam("e8abf83f-38f2-450b-80e5-32d206ce85e6", this);
-			//shopbeam.loadProductsFromWidgetEmbed();
 			shopbeam.onClickGoToProduct("childName", "9009638");
-			//shopbeam.onClickGoToProduct("something", "9009635");
+			shopbeam.onClickGoToProduct("bag", "9009635");
 
 			
 			try {
