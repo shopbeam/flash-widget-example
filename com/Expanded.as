@@ -1,4 +1,4 @@
-﻿﻿package com {
+﻿package com {
 	import flash.display.*;
 	import flash.events.*;
 	import flash.net.*;
@@ -18,30 +18,25 @@
 		private var stageH: Number = 418;
 		private var track: Function;
 		private var autoCloseTimer: uint;
-		public var item_x: int = 0;
-		public const API_KEY = "e8abf83f-38f2-450b-80e5-32d206ce85e6";
-		public const API_URL:String = "https://localhost:4000/v1/products";
 		
 		public var urlArr: Array = new Array();
 
 		public function Expanded() {	
 			super();
-			Security.allowDomain("*");
 			var shopbeam:Shopbeam = new Shopbeam("e8abf83f-38f2-450b-80e5-32d206ce85e6", this);
-			//shopbeam.linkProductsFromDOM();	
-			shopbeam.makeMovieClipLinkProduct("childName", "9009638");
-			shopbeam.makeMovieClipLinkProduct("something", "9009635");
+			//shopbeam.loadProductsFromWidgetEmbed();
+			shopbeam.onClickGoToProduct("childName", "9009638");
+			//shopbeam.onClickGoToProduct("something", "9009635");
 
 			
 			try {
-				//var swfLocation:String = ExternalInterface.call("window.location.href.toString");
-				//if(!swfLocation) _init(function(arg1:*, arg2:*):void{trace('TRACK =', arg1 + ',', arg2)});
+				var swfLocation:String = ExternalInterface.call("window.location.href.toString");
+				if(!swfLocation) _init(function(arg1:*, arg2:*):void{trace('TRACK =', arg1 + ',', arg2)});
 			} catch (e: Error) {
 				trace(e.message);
 			}
 			cta_mc.addEventListener(MouseEvent.ROLL_OVER, ctaManager);
 			cta_mc.addEventListener(MouseEvent.CLICK, ctaManager);
-			_init();
 		}
 
 		function log(args: * ): void {
@@ -50,8 +45,8 @@
 			}
 		}
 
-		public function _init(): void {
-			//track = event;
+		public function _init(event: Function): void {
+			track = event;
 
 			var bgShape: Shape = new Shape();
 			bgShape.graphics.beginFill(0xffffff);
@@ -187,18 +182,18 @@
 					break;
 
 				case 'click':
-					//track('click', 'learn_more');
-					//track('message', 'learn_more');
+					track('click', 'learn_more');
+					track('message', 'learn_more');
 					break;
 			}
 		}
 		public function autoClose(): void {
-			//track('view ', 'auto_close');
-			//track('message', 'auto_close');
+			track('view ', 'auto_close');
+			track('message', 'auto_close');
 		}
 		public function closeExpansion(event: MouseEvent): void {
-			//track('click', 'user_close');
-			//track('message', 'user_close');
+			track('click', 'user_close');
+			track('message', 'user_close');
 		}
 		public function _catch($e: * ): void {
 			if ($e.message.split('http://').length >= 2) {
