@@ -34,6 +34,9 @@
 			}
 			cta_mc.addEventListener(MouseEvent.ROLL_OVER, ctaManager);
 			cta_mc.addEventListener(MouseEvent.CLICK, ctaManager);
+			
+			//I'm executing _init function anyway, otherwise the animation didn't worked out.
+			_init(function(arg1:*, arg2:*):void{trace('TRACK =', arg1 + ',', arg2)});
 		}
 
 		function log(args: * ): void {

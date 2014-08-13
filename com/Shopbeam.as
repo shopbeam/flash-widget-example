@@ -13,7 +13,7 @@
 		public var API_VERSION: * = "1";
 		public var API_SCHEME: String = "https";
 		public var API_DOMAIN: String = "www.shopbeam.com";
-		public var API_PORT: * = "4000";
+		public var API_PORT: * = "443";
 		public var API_URL: String = API_SCHEME + "://" +API_DOMAIN + ":" + API_PORT + "/v" + API_VERSION + "/products";
 		public var main: MovieClip;
 		public var stageRef: Stage;
