@@ -9,8 +9,12 @@
 	import flash.system.Security;
 
 	public class Shopbeam {
-		public var API_KEY = "e8abf83f-38f2-450b-80e5-32d206ce85e6";
-		public const API_URL: String = "https://localhost:4000/v1/products";
+		public var API_KEY: String = "e8abf83f-38f2-450b-80e5-32d206ce85e6";
+		public var API_VERSION: String = "1";
+		public var API_SCHEME: String = "https";
+		public var API_DOMAIN: String = "localhost";
+		public var API_PORT: String = "4000";
+		public var API_URL: String = API_SCHEME + "://" +API_DOMAIN + ":" + API_PORT + "/v" + API_VERSION + "/products";
 		public var main: MovieClip;
 		public var stageRef: Stage;
 		public var index:Number = 0;
