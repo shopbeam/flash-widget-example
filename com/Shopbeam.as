@@ -84,7 +84,6 @@
 			mc = this.main.getChildByName(mc_name) as MovieClip;
 			mc.buttonMode = true;
 			mc.useHandCursor = true;
-			mc.alpha = 0;
 			
 			registerProductInWidget(registerProductUrl);
 
@@ -130,7 +129,6 @@
 					onClickProductArea(index.toString());
 				});				
 				main.stage.addChild(area);
-				area.alpha = 0.3;
 			});
 		}
 
