@@ -26,7 +26,6 @@
 			this.main = mainMc;
 			this.API_KEY = apiKey;
 			this.x_area = 0;
-			log(this.x_area);
 			widgetLoaderExists();
 		}
 		private function widgetLoaderExists(): int {
@@ -127,7 +126,7 @@
 				area.buttonMode = true;
 				area.addEventListener(MouseEvent.CLICK, function (e:Event){
 					onClickProductArea(index.toString());
-				});				
+				});
 				main.stage.addChild(area);
 			});
 		}
