@@ -6,13 +6,12 @@ var static = require('node-static');
 var file = new static.Server('./demo/public');
 var port = process.env.PORT || 8084;
 
-require('http').createServer(function (request, response) {
-    request.addListener('end', function () {
-        //
-        // Serve files!
-        //
-        file.serve(request, response);
-    }).resume();
-}).listen(port);
 
-console.log('  visit http://localhost:' + port);
+for (i = port; i <= (port + 1); i++) {
+    require('http').createServer(function (request, response) {
+        request.addListener('end', function () {
+            file.serve(request, response);
+        }).resume();
+    }).listen(i);
+    console.log('visit http://localhost:' + i);
+}
