@@ -14,7 +14,7 @@ Usage
 In "YourDocumentClass" file, instantiate the Shopbeam class with you API key.
 
 ```
-    import com.Shopbeam;
+    import com.shopbeam.*;
 
     public class YourDocumentClass extends MovieClip {
 
