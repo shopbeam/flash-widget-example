@@ -1,0 +1,27 @@
+body{
+    background:transparent url('../img/dark_exa.png');
+}
+
+h1{
+    font: bold 1.8em/1.5em sans-serif, Arial, Tahoma;
+    color: #FFF;
+    text-align: center;
+    text-shadow: 2px 2px 15px #939393;
+    margin: 0pt auto;
+}
+
+hr{
+    width: 60%;
+    color: #999;
+}
+
+#main{
+    margin:0pt auto;
+    width: 900px;
+}
+
+a#fork_me {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
