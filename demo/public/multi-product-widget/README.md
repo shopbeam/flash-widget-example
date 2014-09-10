@@ -51,13 +51,14 @@ data-shopbeam-url="/v1/products?id=9184101 ...
 On the hosting page just embed an object as following:
 
 ```
-    <object type="application/x-shockwave-flash" data="swfname.swf"
-      id="shopbeam-widget-swf-unbootstrapped-YOUR-API-KEY"
-      width="403" height="253">
-      <param name="movie" value="swfname.swf"/>
-      <param name="FlashVars" value="widgetUuid=YOUR-API-KEY"/>
-      <param name="allowscriptaccess" value="always"/>
-    </object>
+  <script class="shopbeam-script" type="text/javascript" src="https://www.shopbeam.com/js/widget.loader.js" async="true"></script>
+  <object type="application/x-shockwave-flash" data="swfname.swf"
+    id="shopbeam-widget-swf-unbootstrapped-YOUR-API-KEY"
+    width="403" height="253">
+    <param name="movie" value="swfname.swf"/>
+    <param name="FlashVars" value="widgetUuid=YOUR-API-KEY"/>
+    <param name="allowscriptaccess" value="always"/>
+  </object>
 
 ```
 
