@@ -18,7 +18,7 @@ There are two ways to make that your flash advertisements react to user click lo
 
 In "YourDocumentClass" file, instantiate the Shopbeam class with your API key.
 
-```
+```as
     import com.shopbeam.*;
 
     public class YourDocumentClass extends MovieClip {
@@ -50,7 +50,7 @@ data-shopbeam-url="/v1/products?id=9184101 ...
 
 On the hosting page just embed an object as following:
 
-```
+```html
   <script class="shopbeam-script" type="text/javascript" src="https://www.shopbeam.com/js/widget.loader.js" async="true"></script>
   <object type="application/x-shockwave-flash" data="swfname.swf"
     id="shopbeam-widget-swf-unbootstrapped-UUID"
@@ -69,7 +69,7 @@ On the hosting page just embed an object as following:
 Put comma separated urls to our API for each product in the attr ``data-shopbeam-url` as shown below.
 
 
-```
+```html
     <object type="application/x-shockwave-flash" data="swfname.swf"
       id="shopbeam-widget-swf-unbootstrapped-"
       data-image-src="https://cloudinary-a.akamaihd.net/shopbeam/image/fetch/w_300,h_600,c_pad/https%3A%2F%2Fs3.amazonaws.com%2Fsb-photos%2F15430%2F0f450aa8-f79a-479f-aaee-cbfcb381e371-af14616ba9d74f4aa2121ee8efba0dfa.png"
@@ -85,7 +85,7 @@ Put comma separated urls to our API for each product in the attr ``data-shopbeam
 
 Afterwards, in your AS code, simply do:
 
-```
+```as
     shopbeam.loadProductsFromWidgetEmbed();
 ```
 instead of call shopbeam.onClickGoToProduct method.
