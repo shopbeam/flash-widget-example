@@ -6,40 +6,63 @@ Overview
 
 Shopbeam provides tools for advertisers and publishers to create and serve display advertisements which when clicked or hovered over load product detail panels on-site which can be used to add items to a universal cart and purchase them without leaving the host website.
 
-The Shopbeam 'widget' is the element that is embedded onto the hosting site's page or served over an ad network which the user can interact with to begin their on-site shopping experience. The Shopbeam widget can be either an html image made active with javascript or a flash swf. The instructions below are for creating and embedding a flash swf Shopbeam widget.
+The Shopbeam 'widget' is the element that is embedded onto the hosting site's page or served over an ad network which the user can interact with to begin their on-site shopping experience. The Shopbeam widget can be either an html image made active with javascript or a flash swf.The instructions below are for creating and embedding a flash swf Shopbeam widget.
 
 Usage
 -----
 
-In "YourDocumentClass" file, instantiate the Shopbeam class with you API key.
+There are two ways to make that your flash advertisements react to user click loading Shopbeam products detail panel.
+
+1) Linking MovieClips to Shopbeam products
+-----
+
+In "YourDocumentClass" file, instantiate the Shopbeam class with your API key.
 
 ```
     import com.shopbeam.*;
 
     public class YourDocumentClass extends MovieClip {
 
-        public function YourDocumentClass() {	
-	        super();
-	        var shopbeam:Shopbeam = new Shopbeam("YOUR-API-KEY", this);
-	        shopbeam.onClickGoToProduct("childName", "9009638");
-	    }
-	}
+        public function YourDocumentClass() { 
+          super();
+         
+          var shopbeam:Shopbeam = new Shopbeam("YOUR-API-KEY", this);
+         
+          shopbeam.onClickGoToProduct("movieClip1", "product1-id"); /* movieClip1 is the name of a Movie Clip in your flash AD
+                                                                       and product1-id is the ID of a Shopbeam product */
+
+          shopbeam.onClickGoToProduct("movieClip2", "product2-id");
+
+      }
+  }
 ```
 
-Linking MovieClips to Shopbeam products
------
+You can find com.shopbeam library into the examples on this repo.
 
-In order to link a MovieClip to a ShopBeam product, simply create a MovieClip in your stage using Flash, and give it an "instance name".
+As we see above, in order to link MovieClips to ShopBeam products, simply create the MovieClips in your stage using Flash, and give they instance names (for the example above: MovieClip1, MovieClip2). Then search into shopbeam.com/products, the IDs of the products you gonna advertise, and give to each "onClickGoToProduct" method the name you gave to the MovieClip, and the Product ID. And that's it!
 
-Once you give the name, simply do:
+Note: To find Shopbeam Product ID, you can open the product detail on shopbeam.com/products, click the Text Link tab, copy the code and paste into a text editor, then look for the product id: 
 
 ```
-    shopbeam.onClickGoToProduct("childName", "9009638");
+data-shopbeam-url="/v1/products?id=9184101 ...
 ```
 
-give the method the name you gave to the MovieClip, and a Product ID. And that's it!
 
-Loading products from the Embed attributes
+On the hosting page just embed an object as following:
+
+```
+    <object type="application/x-shockwave-flash" data="swfname.swf"
+      id="shopbeam-widget-swf-unbootstrapped-YOUR-API-KEY"
+      width="403" height="253">
+      <param name="movie" value="swfname.swf"/>
+      <param name="FlashVars" value="widgetUuid=YOUR-API-KEY"/>
+      <param name="allowscriptaccess" value="always"/>
+    </object>
+
+```
+
+
+2) Loading products from the Embed attributes
 -----
 
 Put comma separated urls to our API for each product in the attr ``data-shopbeam-url` as shown below.
@@ -64,6 +87,7 @@ Afterwards, in your AS code, simply do:
 ```
     shopbeam.loadProductsFromWidgetEmbed();
 ```
+instead of call shopbeam.onClickGoToProduct method.
 
 This will create clickable areas for each comma separated value.
 
